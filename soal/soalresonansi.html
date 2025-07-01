@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Intensitas Bunyi</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        .jumbotron{
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            overflow-anchor: none;
+        }
+        .jumbotron p{
+            font-size: 13px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .option-group {
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hasil {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border-radius: 4px;
+        }
+        .explanation {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border-radius: 4px;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0e6ff;
+            border-radius: 4px;
+        }
+        .correct-answer {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .incorrect-answer {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .question-container {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="../home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../materi.html">Semua Materi</a></li>
+                            <li><a href="../materi/gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="../materi/gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../materi/persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="../materi/bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="../materi/cahaya.html">3. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="../materi/osialasi.html">Osilasi</a></li>
+                            <li><a href="../materi/resonansi.html">Resonansi</a></li>
+                            <li><a href="../materi/doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Question 1 -->
+    <div id="soal1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron" style="margin-top: 80px;">
+                        <center><h2>Contoh Soal dan Pembahasan</h2></center>
+                        <br>
+                        <p>1. Resonansi pertama garpu tala terjadi pada ruang udara dalam tabung setinggi 20 cm. Jika cepat rambat bunyi di udara 340 m/s, berapakah frekuensi garpu tala?</p>
+                        <form id="form-soal1">
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="A" id="option1A">
+                                <label for="option1A">A. 425 Hz</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="B" id="option1B">
+                                <label for="option1B">B. 450 Hz</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="C" id="option1C">
+                                <label for="option1C">C. 500 Hz</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="D" id="option1D">
+                                <label for="option1D">D. 425 Hz</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="E" id="option1E">
+                                <label for="option1E">E. 475 Hz</label>
+                            </div>
+                            <button type="button" id="hitung1">Periksa Jawaban</button>
+                        </form>
+                        <div id="result1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div id="soal2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <br>
+                        <p>2. Nada atas pertama pipa organa terbuka yang panjangnya 40 cm beresonansi dengan pipa organa tertutup. Jika pada saat beresonansi jumlah simpul kedua pipa sama, maka panjang pipa organa tertutup (dalam cm) adalah ...</p>
+                        <form id="form-soal2">
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="A" id="option2A">
+                                <label for="option2A">A. 10 cm</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="B" id="option2B">
+                                <label for="option2B">B. 30 cm</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="C" id="option2C">
+                                <label for="option2C">C. 50 cm</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="D" id="option2D">
+                                <label for="option2D">D. 70 cm</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="E" id="option2E">
+                                <label for="option2E">E. 90 cm</label>
+                            </div>
+                            <button type="button" id="hitung2">Periksa Jawaban</button>
+                        </form>
+                        <div id="result2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div id="soal3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <br>
+                        <p>3. Sebuah garpu tala dengan frekuensi 550 Hz, digetarkan di dekat tabung gelas berisi air yang tinggi permukaannya dapat diatur. Jika cepat rambat bunyi di udara 330 m/s, resonansi akan terjadi jika jarak permukaan air dari ujung tabung sebesar:</p>
+                        <p>(1) 0,15 (3) 0,45<br>
+                           (2) 0,30 (4) 0,60</p>
+                        <p>Pernyataan yang benar adalah......</p>
+                        <form id="form-soal3">
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="A" id="option3A">
+                                <label for="option3A">a. (1), (2) dan (3)</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="B" id="option3B">
+                                <label for="option3B">b. (1) dan (3)</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="C" id="option3C">
+                                <label for="option3C">c. (2) dan (4)</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="D" id="option3D">
+                                <label for="option3D">d. (4) saja</label>
+                            </div>
+                            <button type="button" id="hitung3">Periksa Jawaban</button>
+                        </form>
+                        <div id="result3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        // Question 1
+        document.getElementById('hitung1').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer1"]:checked')?.value;
+            const correctAnswer = "D"; 
+            
+            const L = 0.20;         // Tinggi kolom udara (m)
+            const v = 340;          // Cepat rambat bunyi (m/s)
+            
+            // Menghitung frekuensi resonansi pertama
+            // Untuk resonansi pertama: L = λ/4 → λ = 4L
+            const lambda = 4 * L;
+            const f = v / lambda;
+            const f_rounded = Math.round(f); // Pembulatan ke bilangan bulat
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah D. 425 Hz</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Diketahui</strong>:</p>
+                <p>   Tinggi kolom udara (L) = 20 cm = 0,20 m</p>
+                <p>   Cepat rambat bunyi (v) = 340 m/s</p>
+                <p>2. <strong>Resonansi pertama</strong>:</p>
+                <p>   Pada resonansi pertama, tinggi kolom udara = ¼λ</p>
+                <p>   \\( L = \\frac{1}{4}\\lambda \\)</p>
+                <p>   \\( \\lambda = 4L = 4 \\times 0,20 = 0,80 \\text{ m} \\)</p>
+                <p>3. <strong>Menghitung frekuensi</strong>:</p>
+                <p>   \\( f = \\frac{v}{\\lambda} = \\frac{340}{0,80} = 425 \\text{ Hz} \\)</p>
+                <p>4. <strong>Kesimpulan</strong>:</p>
+                <p>   Frekuensi garpu tala adalah 425 Hz (Pilihan D)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>425 Hz benar tapi ada di dua pilihan (A dan D)</p>";
+                        break;
+                    case 'B':
+                        resultHTML += "<p>450 Hz tidak sesuai perhitungan</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>500 Hz terlalu tinggi</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>475 Hz mendekati tapi tidak tepat</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result1').innerHTML = resultHTML;
+            MathJax.typeset();
+        });
+
+        // Question 2
+        document.getElementById('hitung2').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer2"]:checked')?.value;
+            const correctAnswer = "B"; 
+            
+            const L_terbuka = 40;   // Panjang pipa organa terbuka (cm)
+            
+            // Menghitung panjang pipa organa tertutup
+            // Nada atas pertama pipa terbuka (n=2): f = v/λ = v/(L_terbuka)
+            // Resonansi dengan pipa tertutup dengan jumlah simpul sama
+            // Panjang pipa tertutup = 3/4 panjang pipa terbuka
+            const L_tertutup = (3/4) * L_terbuka;
+            const L_tertutup_rounded = Math.round(L_tertutup); // Pembulatan ke bilangan bulat
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah B. 30 cm</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Diketahui</strong>:</p>
+                <p>   Panjang pipa organa terbuka (L) = 40 cm</p>
+                <p>   Nada atas pertama (n=2) pada pipa terbuka</p>
+                <p>2. <strong>Frekuensi pipa terbuka</strong>:</p>
+                <p>   \\( f_{terbuka} = \\frac{v}{\\lambda} = \\frac{v}{L_{terbuka}} \\)</p>
+                <p>3. <strong>Kondisi resonansi</strong>:</p>
+                <p>   Frekuensi pipa tertutup harus sama dengan pipa terbuka</p>
+                <p>   Dengan jumlah simpul yang sama, pipa tertutup akan memiliki panjang 3/4 pipa terbuka</p>
+                <p>4. <strong>Menghitung panjang pipa tertutup</strong>:</p>
+                <p>   \\( L_{tertutup} = \\frac{3}{4} \\times L_{terbuka} = \\frac{3}{4} \\times 40 = 30 \\text{ cm} \\)</p>
+                <p>5. <strong>Kesimpulan</strong>:</p>
+                <p>   Panjang pipa organa tertutup adalah 30 cm (Pilihan B)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>10 cm terlalu pendek</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>50 cm terlalu panjang</p>";
+                        break;
+                    case 'D':
+                        resultHTML += "<p>70 cm tidak sesuai dengan kondisi resonansi</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>90 cm lebih dari dua kali panjang pipa terbuka</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result2').innerHTML = resultHTML;
+            MathJax.typeset();
+        });
+
+        // Question 3
+        document.getElementById('hitung3').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer3"]:checked')?.value;
+            const correctAnswer = "B"; 
+            
+            const f = 550;          // Frekuensi garpu tala (Hz)
+            const v = 330;          // Cepat rambat bunyi (m/s)
+            
+            // Menghitung panjang gelombang
+            const lambda = v / f;
+            
+            // Menghitung panjang kolom udara untuk resonansi
+            // Resonansi ke-n: L = (2n+1)λ/4
+            const L1 = (1 * lambda) / 4;  // Resonansi pertama (n=0)
+            const L2 = (3 * lambda) / 4;  // Resonansi kedua (n=1)
+            const L3 = (5 * lambda) / 4;  // Resonansi ketiga (n=2)
+            const L4 = (7 * lambda) / 4;  // Resonansi keempat (n=3)
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah b. (1) dan (3)</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Diketahui</strong>:</p>
+                <p>   Frekuensi (f) = 550 Hz</p>
+                <p>   Cepat rambat bunyi (v) = 330 m/s</p>
+                <p>2. <strong>Menghitung panjang gelombang</strong>:</p>
+                <p>   \\( \\lambda = \\frac{v}{f} = \\frac{330}{550} = 0,6 \\text{ m} \\)</p>
+                <p>3. <strong>Kondisi resonansi</strong>:</p>
+                <p>   Resonansi terjadi ketika panjang kolom udara L = (2n+1)λ/4</p>
+                <p>   - Resonansi pertama (n=0): \\( L = \\frac{0,6}{4} = 0,15 \\text{ m} \\)</p>
+                <p>   - Resonansi kedua (n=1): \\( L = \\frac{3 \\times 0,6}{4} = 0,45 \\text{ m} \\)</p>
+                <p>   - Resonansi ketiga (n=2): \\( L = \\frac{5 \\times 0,6}{4} = 0,75 \\text{ m} \\)</p>
+                <p>4. <strong>Pernyataan yang benar</strong>:</p>
+                <p>   (1) 0,15 m dan (3) 0,45 m</p>
+                <p>5. <strong>Kesimpulan</strong>:</p>
+                <p>   Jawaban yang benar adalah b. (1) dan (3)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>Pilihan (2) 0,30 tidak termasuk jawaban yang benar</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>Pilihan (2) dan (4) tidak sesuai dengan kondisi resonansi</p>";
+                        break;
+                    case 'D':
+                        resultHTML += "<p>Pilihan (4) saja tidak tepat</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result3').innerHTML = resultHTML;
+            MathJax.typeset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Osilasi</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        .jumbotron{
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            overflow-anchor: none;
+        }
+        .jumbotron p{
+            font-size: 13px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .option-group {
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hasil {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border-radius: 4px;
+        }
+        .explanation {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border-radius: 4px;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0e6ff;
+            border-radius: 4px;
+        }
+        .correct-answer {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .incorrect-answer {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .question-container {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="../home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../materi.html">Semua Materi</a></li>
+                            <li><a href="../materi/gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="../materi/gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../materi/persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="../materi/bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="../materi/cahaya.html">3. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="../materi/osialasi.html">Osilasi</a></li>
+                            <li><a href="../materi/resonansi.html">Resonansi</a></li>
+                            <li><a href="../materi/doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Question 1 -->
+    <div id="soal1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron" style="margin-top: 80px;">
+                        <center><h2>Contoh Soal dan Pembahasan</h2></center>
+                        <br>
+                        <p>1. Terdapat sistem balok dan pegas. Pertama balok tersebut diberikan gaya pada arah sumbu horizontal sehingga terjadi perpindahan sejauh x. Kemudian balok tersebut dilepaskan dan mengalami osilasi. Diasumsikan lantainya licin, massa balok adalah m, konstanta pegas adalah k. Tentukan periode osilasi dari balok!</p>
+                        <form id="form-soal1">
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="A" id="option1A">
+                                <label for="option1A">A. \( 2\pi\sqrt{\frac{k}{m}} \)</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="B" id="option1B">
+                                <label for="option1B">B. \( 2\pi\sqrt{\frac{m}{k}} \)</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="C" id="option1C">
+                                <label for="option1C">C. \( \frac{1}{2\pi}\sqrt{\frac{k}{m}} \)</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="D" id="option1D">
+                                <label for="option1D">D. \( \frac{1}{2\pi}\sqrt{\frac{m}{k}} \)</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="E" id="option1E">
+                                <label for="option1E">E. \( \pi\sqrt{\frac{m}{k}} \)</label>
+                            </div>
+                            <button type="button" id="hitung1">Periksa Jawaban</button>
+                        </form>
+                        <div id="result1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div id="soal2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <br>
+                        <p>2. Sebuah benda 0,8 kg dihubungkan pada sebuah pegas dengan k = 400 N/m. Carilah frekuensi dan periode gerak benda ketika menyimpang dari kesetimbangan.</p>
+                        <form id="form-soal2">
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="A" id="option2A">
+                                <label for="option2A">A. f = 2,52 Hz; T = 0,40 s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="B" id="option2B">
+                                <label for="option2B">B. f = 3,56 Hz; T = 0,12 s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="C" id="option2C">
+                                <label for="option2C">C. f = 4,12 Hz; T = 0,24 s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="D" id="option2D">
+                                <label for="option2D">D. f = 3,56 Hz; T = 0,28 s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="E" id="option2E">
+                                <label for="option2E">E. f = 5,64 Hz; T = 0,18 s</label>
+                            </div>
+                            <button type="button" id="hitung2">Periksa Jawaban</button>
+                        </form>
+                        <div id="result2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div id="soal3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <br>
+                        <p>3. Sebuah balok bermassa 680 g dilekatkan pada sebuah pegas dengan konstanta pegas sebesar 65 N/m. Balok tersebut ditarik sejauh 11 cm dari titik kesetimbangan (x = 0) kemudian dilepaskan.</p>
+                        <p>a). Berapa energi mekaniknya?</p>
+                        <form id="form-soal3">
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="A" id="option3A">
+                                <label for="option3A">A. 0,193 J</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="B" id="option3B">
+                                <label for="option3B">B. 0,293 J</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="C" id="option3C">
+                                <label for="option3C">C. 0,343 J</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="D" id="option3D">
+                                <label for="option3D">D. 0,393 J</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="E" id="option3E">
+                                <label for="option3E">E. 0,493 J</label>
+                            </div>
+                            <button type="button" id="hitung3">Periksa Jawaban</button>
+                        </form>
+                        <div id="result3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        // Question 1
+        document.getElementById('hitung1').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer1"]:checked')?.value;
+            const correctAnswer = "B"; 
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah B. \( 2\pi\sqrt{\frac{m}{k}} \)</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Sistem Osilasi Pegas-Balok</strong>:</p>
+                <p>   Sistem ini merupakan osilator harmonik sederhana dengan:</p>
+                <p>   - Massa balok = m</p>
+                <p>   - Konstanta pegas = k</p>
+                <p>   - Permukaan licin (tidak ada gesekan)</p>
+                <p>2. <strong>Rumus Periode Osilasi</strong>:</p>
+                <p>   Periode osilasi untuk sistem pegas-balok diberikan oleh:</p>
+                <p>   \\( T = 2\pi\\sqrt{\\frac{m}{k}} \\)</p>
+                <p>3. <strong>Penurunan Rumus</strong>:</p>
+                <p>   Berdasarkan hukum Hooke dan hukum Newton II:</p>
+                <p>   \\( F = -kx = ma \\)</p>
+                <p>   Solusi persamaan diferensial ini menghasilkan:</p>
+                <p>   \\( \\omega = \\sqrt{\\frac{k}{m}} \\)</p>
+                <p>   Karena \\( T = \\frac{2\pi}{\omega} \\), maka:</p>
+                <p>   \\( T = 2\pi\\sqrt{\\frac{m}{k}} \\)</p>
+                <p>4. <strong>Kesimpulan</strong>:</p>
+                <p>   Periode osilasi sistem pegas-balok adalah \\( 2\pi\\sqrt{\\frac{m}{k}} \\) (Pilihan B)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>Pilihan A menunjukkan rumus frekuensi angular (ω), bukan periode</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>Pilihan C adalah rumus frekuensi (f), bukan periode</p>";
+                        break;
+                    case 'D':
+                        resultHTML += "<p>Pilihan D adalah kebalikan dari rumus frekuensi</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>Pilihan E hilang faktor 2π dan akarnya terbalik</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result1').innerHTML = resultHTML;
+            MathJax.typeset(); // Render ulang persamaan matematika
+        });
+
+        // Question 2
+        document.getElementById('hitung2').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer2"]:checked')?.value;
+            const correctAnswer = "D"; 
+            
+            const m = 0.8;         // Massa benda (kg)
+            const k = 400;         // Konstanta pegas (N/m)
+            
+            // Menghitung frekuensi dan periode
+            const omega = Math.sqrt(k/m);          // Frekuensi angular (rad/s)
+            const f = omega / (2 * Math.PI);      // Frekuensi (Hz)
+            const T = 1/f;                     // Periode (s)
+            
+            // Pembulatan 2 angka desimal
+            const f_rounded = Math.round(f * 100) / 100;
+            const T_rounded = Math.round(T * 100) / 100;
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += `<p>Jawaban Anda salah. Jawaban yang benar adalah D. f = ${f_rounded} Hz; T = ${T_rounded} s</p>`;
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Diketahui</strong>:</p>
+                <p>   Massa benda (m) = 0,8 kg</p>
+                <p>   Konstanta pegas (k) = 400 N/m</p>
+                <p>2. <strong>Menghitung frekuensi angular</strong>:</p>
+                <p>   \\( \\omega = \\sqrt{\\frac{k}{m}} = \\sqrt{\\frac{400}{0.8}} = \\sqrt{500} \\approx 22,36 \\text{ rad/s} \\)</p>
+                <p>3. <strong>Menghitung frekuensi (f)</strong>:</p>
+                <p>   \\( f = \\frac{\\omega}{2\\pi} = \\frac{22,36}{6,28} \\approx 3,56 \\text{ Hz} \\)</p>
+                <p>4. <strong>Menghitung periode (T)</strong>:</p>
+                <p>   \\( T = \\frac{1}{f} = \\frac{1}{3,56} \\approx 0,28 \\text{ s} \\)</p>
+                <p>5. <strong>Kesimpulan</strong>:</p>
+                <p>   Frekuensi gerak adalah 3,56 Hz dan periodenya 0,28 s (Pilihan D)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>Nilai frekuensi dan periode tidak sesuai dengan perhitungan</p>";
+                        break;
+                    case 'B':
+                        resultHTML += "<p>Periode 0,12 s terlalu kecil untuk sistem ini</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>Frekuensi 4,12 Hz terlalu besar untuk konstanta pegas ini</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>Frekuensi 5,64 Hz sangat tidak mungkin untuk parameter ini</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result2').innerHTML = resultHTML;
+            MathJax.typeset();
+        });
+
+        // Question 3
+        document.getElementById('hitung3').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer3"]:checked')?.value;
+            const correctAnswer = "D"; 
+            
+            const m = 0.680;        // Massa balok (kg)
+            const k = 65;           // Konstanta pegas (N/m)
+            const x = 0.11;         // Simpangan (m)
+            
+            // Menghitung energi mekanik (energi potensial pegas maksimum)
+            const E = 0.5 * k * Math.pow(x, 2);
+            const E_rounded = Math.round(E * 1000) / 1000; // Pembulatan 3 desimal
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += `<p>Jawaban Anda salah. Jawaban yang benar adalah D. ${E_rounded} J</p>`;
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Diketahui</strong>:</p>
+                <p>   Massa balok (m) = 680 g = 0,680 kg</p>
+                <p>   Konstanta pegas (k) = 65 N/m</p>
+                <p>   Simpangan (x) = 11 cm = 0,11 m</p>
+                <p>2. <strong>Energi Mekanik Sistem</strong>:</p>
+                <p>   Pada saat simpangan maksimum, seluruh energi mekanik berupa energi potensial pegas:</p>
+                <p>   \\( E = \\frac{1}{2}kx^2 \\)</p>
+                <p>3. <strong>Substitusi nilai</strong>:</p>
+                <p>   \\( E = \\frac{1}{2} \\times 65 \\times (0.11)^2 \\)</p>
+                <p>4. <strong>Hitung energi</strong>:</p>
+                <p>   \\( E = 0.5 \\times 65 \\times 0.0121 \\)</p>
+                <p>   \\( E = 0.39325 \\text{ J} \\approx 0,393 \\text{ J} \\)</p>
+                <p>5. <strong>Kesimpulan</strong>:</p>
+                <p>   Energi mekanik sistem pegas-balok adalah 0,393 J (Pilihan D)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>Nilai 0,193 J terlalu kecil, mungkin salah perhitungan kuadrat</p>";
+                        break;
+                    case 'B':
+                        resultHTML += "<p>Nilai 0,293 J mendekati tapi tidak tepat</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>Nilai 0,343 J adalah setengah dari nilai yang benar</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>Nilai 0,493 J terlalu besar untuk parameter ini</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result3').innerHTML = resultHTML;
+            MathJax.typeset();
+        });
+    </script>
+</body>
+</html>

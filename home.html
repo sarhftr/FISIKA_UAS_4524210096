@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAS FISIKA</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 70px;
+        }
+        .jumbotron {
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-out;
+        }
+        .jumbotron:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        .button {
+            background-color: #a4c4b5;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 15px;
+            font-size: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: transparent;
+            color: #a4c4b5;
+            border-color: #a4c4b5;
+            text-decoration: none;
+            transform: scale(1.05);
+        }
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            color: #2c3e50;
+            position: relative;
+            display: inline-block;
+        }
+        h1:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        h1:hover:after {
+            width: 100%;
+        }
+        
+        @media (max-width: 767px) {
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Awal Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="materi.html">Semua Materi</a></li>
+                            <li><a href="materi/gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="materi/gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="materi/persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="materi/bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="materi/cahaya.html">4. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            
+                            <li><a href="materi/osialasi.html">Osilasi</a></li>
+                            <li><a href="materi/resonasi.html">Resonansi</a></li>
+                            <li><a href="materi/doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!---Body-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h1>Materi Fisika</h1>
+                    <p>Materi yang mencakup Project UAS Fisika ini adalah:</p>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li>• Gerak 1, 2, dan 3 dimensi (gerak horizontal; vertikal ke atas; jatuh bebas)</li>
+                        <li>• Gelombang (persamaan gelombang; cepat rambat gelombang; intensitas bunyi; pembiasan gelombang cahaya)</li>
+                        <li>• Osilasi</li>
+                        <li>• Resonansi</li>
+                        <li>• Efek Doppler (sumber dan pendengar menjauhi/mendekati)</li>
+                    </ul>
+                    <br>
+                    <p><a class="button" href="materi.html" role="button">Materi</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intensitas Bunyi</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 70px;
+        }
+        
+        /* Navbar Styling */
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        
+        /* Main Content Styling */
+        .jumbotron {
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #a4c4b5;
+            display: inline-block;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        h4:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 70%;
+            width: 5px;
+            background-color: #a4c4b5;
+            border-radius: 3px;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .highlight {
+            color: #e74c3c;
+            font-weight: 500;
+        }
+        
+        /* Formula Box Styling */
+        .formula-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #a4c4b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .formula-box:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .formula-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        
+        .formula-label div {
+            padding: 5px 0;
+        }
+        
+        /* Glyphicon Styling */
+        .glyphicon-chevron-right {
+            color: #a4c4b5;
+            margin-right: 5px;
+        }
+        
+        /* Panel Styling */
+        .panel {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+        
+        .panel-heading {
+            background-color: #a4c4b5 !important;
+            color: white !important;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 15px;
+            border: none;
+        }
+        
+        .panel-title a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .panel-body {
+            padding: 0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .panel-body a {
+            display: block;
+            padding: 12px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .panel-body a:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+            color: #a4c4b5;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .jumbotron {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            h4 {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Awal Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="../home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../materi.html">Semua Materi</a></li>
+                            <li><a href="gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="cahaya.html">3. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="osialasi.html">Osilasi</a></li>
+                            <li><a href="resonasi.html">Resonansi</a></li>
+                            <li><a href="doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Body -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <center><h2>Intensitas Bunyi</h2></center>
+                    <br>
+                    <h4>A. Pendahuluan</h4>
+                    <p>Intensitas bunyi \( I \) ialah daya yang dipindahkan setiap satuan luas, daya yang dimaksud tentunya adalah daya dari gelombang bunyi.</p> 
+                    <p>Kita juga memahami prinsip dari daya \( P \) adalah digunakannya energi \( w \) tiap satuan waktu \( t \) atau usaha yang dilakukan tiap satuan waktu, 
+                        sehingga intensitas bisa diketahui dengan menggunakan persamaan berikut:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[ I = \frac{P}{A} = \frac{w}{tA} \]</p>
+                        <div class="row formula-label">
+                            <div class="col-xs-4">\(I\) = Intensitas bunyi (W/m²)</div>
+                            <div class="col-xs-4">\(P\) = Daya (Watt)</div>
+                            <div class="col-xs-4">\(A\) = Luas area (m²)</div>
+                        </div>
+                    </div>
+
+                    <h4>B. Persamaan Intensitas Bunyi</h4>
+                    <p>Satu sumber akan memancarkan bunyi ke segala arah dan bersifat sferis (seperti kulit bola) sehingga energi yang keluarkan oleh sumber dan dihantarkan oleh partikel 
+                        udara akan memiliki energi yang sama untuk tiap jarak yang sama bila diukur dari sumber bunyi (sering kita sebut sebagai jari-jari). Oleh karena itu, persamaan intensitas gelombang bunyi dapat dirumuskan menjadi:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[I = \frac{P}{4\pi R^2}\]</p>
+                        <div class="row formula-label">
+                            <div class="col-xs-4">\(I\) = Intensitas bunyi (W/m²)</div>
+                            <div class="col-xs-4">\(P\) = Daya gelombang bunyi (Watt)</div>
+                            <div class="col-xs-4">\(R\) = Jarak dari sumber bunyi (m)</div>
+                        </div>
+                    </div>
+                    
+                    <p>Dengan persamaan di atas, dapat disimpulkan bahwa semakin jauh jarak sumber bunyi maka bunyi akan terdengar lemah. Akan tetapi, jika sumber tersebut mendekat atau terletak di tempat 
+                        yang dekat maka bunyi tersebut akan terdengar sangat keras. Hal ini dikarenakan adanya hubungan kuadrat terbalik antara intensitas bunyi dan jarak pengamat terhadap sumber bunyi. Jika jaraknya terhadap sumber menjadi setengahnya, 
+                        maka intensitas bunyi akan menjadi 4 kali dari intensitas semula. Jika jaraknya menjadi \( \frac{1}{4}\)kali, maka intensitasnya akan menjadi 16 kalinya.</p>
+                    
+                    <h4>C. Perbandingan Intensitas Bunyi</h4>
+                    <p>Dari persamaan intensitas bunyi di atas dapat diketahui bahwa intensitas bunyi \( I \) berbanding terbalik dengan kuadrat radius dari sumber bunyi  \( (R^2) \), Maka perbandingan intensitas 
+                        bunyi di titik A pada radius R, dan intensitas bunyi di titik B pada radius R, dari sumber bunyi yang sama adalah:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[ \frac{I_A}{I_B} = \frac{P/ 4\pi R_A^2}{P / 4\pi R_B^2} = \frac{R_B^2}{R_A^2}\]</p>
+                    </div>
+                    
+                    <h4>D. Taraf Intensitas Gelombang Bunyi \( (TI)\)</h4>
+                    <p>Taraf intensitas gelombang bunyi ditemukan oleh Alexander Graham Bell. Secara matematis taraf intensitas gelombang bunyi merupakan logaritma perbandingan antara intensitas bunyi dengan intensitas ambang pendengaran manusia. Dalam artian lain, taraf 
+                        intensitas gelombang bunyi adalah tingkat kebisingan yang akan diterima seseorang (manusia normal) terhadap bunyi-bunyian tersebut.</p>
+                    <p>Taraf intensias gelombang bunyi dapat dirumuskan sebagai berikut:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[ TI = \log \left( \frac{I}{I_o} \right) \quad \text{(dalam Bell)} \]</p>
+                        <p>\[ TI = 10 \log \left( \frac{I}{I_o} \right) \quad \text{(dalam deciBell)} \]</p>
+                        <div class="row formula-label">
+                            <div class="col-xs-4">\(TI\) = Taraf intensitas bunyi (dB)</div>
+                            <div class="col-xs-4">\(I\) = Intensitas bunyi (W/m²)</div>
+                            <div class="col-xs-4">\(I_o\) = Intensitas ambang (10⁻¹² W/m²)</div>
+                        </div>
+                    </div>
+                    
+                    <p>Jika sumber bunyi lebih dari satu, dengan asumsi sumber bunyi identik (sama persis), sehingga intensitas yang dihasilkan memiliki nilai yang sama dan didengarkan oleh seorang pengamat.</p>
+
+                    <!-- Contoh Soal Panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#bunyiCollapse">Contoh Soal dan Pembahasan Intensitas Bunyi</a>
+                            </h4>
+                        </div>
+                        <div id="bunyiCollapse" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <a href="../soal/soalbunyi.html">Contoh Soal Intensitas Bunyi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

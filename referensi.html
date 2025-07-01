@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referensi Fisika</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 70px;
+        }
+        .jumbotron {
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .reference-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .reference-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .reference-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #a4c4b5;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .reference-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+        .reference-item:last-child {
+            border-bottom: none;
+        }
+        .reference-link {
+            color: #3498db;
+            word-break: break-all;
+        }
+        .reference-link:hover {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        .access-date {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        h1 {
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        h1:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+        }
+        .back-button {
+            background-color: #a4c4b5;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #8ab3a0;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+        /* Navbar Styling */
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+                .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+
+       /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                padding: 15px 5px;
+            }
+        }
+        @media (max-width: 767px) {
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar (same as before) -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="materi.html">Semua Materi</a></li>
+                            <li><a href="gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="cahaya.html">4. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="osialasi.html">Osilasi</a></li>
+                            <li><a href="resonasi.html">Resonansi</a></li>
+                            <li><a href="doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Body Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h1>Daftar Referensi</h1>
+                    <p>Berikut adalah sumber-sumber referensi yang digunakan dalam pembuatan materi fisika ini:</p>
+                    
+                    <div class="reference-container">
+                        <h3 class="reference-title">Sumber Online</h3>
+                        
+                        <div class="reference-item">
+                            <strong>1. Materi Gerak 1 Dimensi</strong>
+                            <p>Suryana, T. (2010). "Fisika dasar I: Pertemuan 2 gerak satu dimensi". slideshare. 
+                            <a href="https://www.slideshare.net/slideshow/fisika-dasar-i-pertemuan-2-gerak-satu-dimensi/2748453" class="reference-link" target="_blank">https://www.slideshare.net/slideshow/fisika-dasar-i-pertemuan-2-gerak-satu-dimensi/2748453</a>
+                            <span class="access-date">(Diakses pada 14 Juni 2025)</span></p>
+                            <strong>1.1 Soal Gerak 1 Dimensi</strong>
+                            <p>Shananda. (2016). "Kumpulan Soal Kinematika 1 Dimensi". Scribd. 
+                            <a href="https://www.scribd.com/doc/296657079/Kumpulan-Soal-Kinematika-1-Dimensi" class="reference-link" target="_blank">https://www.scribd.com/doc/296657079/Kumpulan-Soal-Kinematika-1-Dimensi</a>
+                            <span class="access-date">(Diakses pada 14 Juni 2025)</span></p>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <strong>2. Materi & Soal Gerak 2 dan 3 Dimensi</strong>
+                            <p>collage, wardya. (2024). "Modul & Latihan Soal Besaran Gerak Dua & Tiga Dimensi". 
+                            <a href="https://www.wardayacollege.com/fisika/kinematika/gerak-dua-tiga-dimensi/besaran-gerak-dua-tiga-dimensi/?__cf_chl_tk=2dcYW36NSlU2wYqtExp8AI3Mjv8DxDbI.Vgq5TXIXOs-1751302970-1.0.1.1-z9QfpvTuZg9_6jVEHl8DCr7Tpjn11ShR7TuP4WkYCSU" class="reference-link" target="_blank">https://www.wardayacollege.com/fisika/kinematika/gerak-dua-tiga-dimensi/besaran-gerak-dua-tiga-dimensi/?__cf_chl_tk=2dcYW36NSlU2wYqtExp8AI3Mjv8DxDbI.Vgq5TXIXOs-1751302970-1.0.1.1-z9QfpvTuZg9_6jVEHl8DCr7Tpjn11ShR7TuP4WkYCSU</a>
+                            <span class="access-date">(Diakses pada 26 Juni 2025)</span></p>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <strong>3. Materi Persamaan Gelombang</strong>
+                            <p>Sulistyowati R, D. (2024). "20242-Fisika-A/C". LMS E-Learning Universitas Pancasila. 
+                            <a href="https://drive.google.com/file/d/1qcgRZknsqSXHJpfuKGa4FkKoMj3xfsnG/view" class="reference-link" target="_blank">https://drive.google.com/file/d/1qcgRZknsqSXHJpfuKGa4FkKoMj3xfsnG/view</a>
+                            <span class="access-date">(Diakses pada 27 Juni 2025)</span></p>
+                            <strong>3.1 Materi Cepat Rambat Gelombang</strong>
+                            <p>Yahya, J. (2025). "Cepat Rambat Gelombang". Scribd. 
+                            <a href="https://www.scribd.com/document/872046138/Cepat-Rambat-Gelombang" class="reference-link" target="_blank">https://www.scribd.com/document/872046138/Cepat-Rambat-Gelombang</a>
+                            <span class="access-date">(Diakses pada 27 Juni 2025)</span></p>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <strong>4. Materi Intensitas Bunyi</strong>
+                            <p>Ardiansyah, M. (2020). "Intensitas Bunyi". Scribd.
+                            <a href="https://www.scribd.com/document/453202471/Intensitas-Bunyi" class="reference-link" target="_blank">https://www.scribd.com/document/453202471/Intensitas-Bunyi</a>
+                            <span class="access-date">(Diakses pada 28 Juni 2025)</span></p>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <strong>5. Gelombang Cahaya</strong>
+                            <p>Hutabarat, T. I. P. (2020). "Rangkuman Fisika Kelas XI Gelombang Cahaya". Scribd.
+                            <a href="https://www.scribd.com/document/456338472/Rangkuman-Fisika-Kelas-XI-Gelombang-Cahaya" class="reference-link" target="_blank">https://www.scribd.com/document/456338472/Rangkuman-Fisika-Kelas-XI-Gelombang-Cahaya</a>
+                            <span class="access-date">(Diakses pada 28 Juni 2025)</span></p>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <strong>6. Osilasi</strong>
+                            <p>Nurbayti, R. (2020). "Osilasi fisika dasar 1". s;lideshare
+                            <a href="https://www.slideshare.net/RifkaNurbayti/osilasi-fisdas-kelompok-6" class="reference-link" target="_blank">https://www.slideshare.net/RifkaNurbayti/osilasi-fisdas-kelompok-6</a>
+                            <p>Sulistyowati R, D. (2024). "20242-Fisika-A/C". LMS E-Learning Universitas Pancasila. 
+                            <a href="https://docs.google.com/presentation/d/1E7QgZ4U4lZc7T-vWLa79-Ds89cP6lf4g/edit?usp=sharing&ouid=115496426860613864618&rtpof=true&sd=true" class="reference-link" target="_blank">https://docs.google.com/presentation/d/1E7QgZ4U4lZc7T-vWLa79-Ds89cP6lf4g/edit?usp=sharing&ouid=115496426860613864618&rtpof=true&sd=true</a>
+                            <p>Scribd. (2023). "BAB 12 OSILASI Contoh Soal Fisika Dasar". 
+                            <a href="https://www.scribd.com/document/625426244/BAB-12-OSILASI-contoh-soal-Fisika-Dasar" class="reference-link" target="_blank">https://www.scribd.com/document/625426244/BAB-12-OSILASI-contoh-soal-Fisika-Dasar</a>
+                            <span class="access-date">(Diakses pada 29 Juni 2025)</span></p>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <strong>7. Resonansi</strong>
+                            <p>Sulistyowati R, D. (2024). "20242-Fisika-A/C". LMS E-Learning Universitas Pancasila. 
+                            <a href="https://docs.google.com/presentation/d/183t3HoLMivW0eBWvvI5Ov5_Be54cZRgF/edit?usp=sharing&ouid=115496426860613864618&rtpof=true&sd=true" class="reference-link" target="_blank">https://docs.google.com/presentation/d/183t3HoLMivW0eBWvvI5Ov5_Be54cZRgF/edit?usp=sharing&ouid=115496426860613864618&rtpof=true&sd=true</a>
+                            <p>Anindya. (2023). "Soal Gelombang, Bunyi, Resonansi, Cermin SMP". Scribd. 
+                            <a href="https://www.scribd.com/document/631597877/Soal-Gelombang-bunyi-resonansi-cermin-SMP" class="reference-link" target="_blank">https://www.scribd.com/document/631597877/Soal-Gelombang-bunyi-resonansi-cermin-SMP</a>
+                            <span class="access-date">(Diakses pada 30 Juni 2023)</span></p>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <strong>8. Efek Doppler</strong>
+                            <p>Katoende, F.A. "Efek Doppler". Academia.Edu
+                            <a href="https://www.academia.edu/38521850/Efek_Doppler?source=swp_share" class="reference-link" target="_blank">https://www.academia.edu/38521850/Efek_Doppler?source=swp_share</a>
+                            <p>Dewi, I.R. (2020). "Materi Efek Doppler". Scribd. 
+                            <a href="https://www.scribd.com/document/475336761/Materi-Efek-Doppler" class="reference-link" target="_blank">https://www.scribd.com/document/475336761/Materi-Efek-Doppler</a>
+                            <span class="access-date">(Diakses pada 30 Juni 2023)</span></p>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <a href="home.html" class="back-button">Kembali ke Beranda</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

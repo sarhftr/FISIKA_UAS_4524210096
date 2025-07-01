@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Gerak 2 dan 3 Dimensi</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Navbar Styling */
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        
+        .jumbotron{
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            overflow-anchor: none;
+        }
+        .jumbotron p{
+            font-size: 13px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .option-group {
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hasil {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border-radius: 4px;
+        }
+        .explanation {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border-radius: 4px;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0e6ff;
+            border-radius: 4px;
+        }
+        .correct-answer {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .incorrect-answer {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        h2, h3 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        h2 {
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+                /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .question-container {
+                padding: 15px;
+            }
+            
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Awal Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="../home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../materi.html">Semua Materi</a></li>
+                            <li><a href="../materi/gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="../materi/gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../materi/persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="../materi/bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="../materi/cahaya.html">3. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="../materi/osialasi.html">Osilasi</a></li>
+                            <li><a href="../materi/resonansi.html">Resonansi</a></li>
+                            <li><a href="../materi/doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Body -->
+    <div id="soal1">
+        <div class="container" style="margin-top: 90px;">
+            <center><h2>Contoh Soal Gerak 2 dan 3 Dimensi</h2></center>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <p>1. Peluru ditembakkan dengan kecepatan 100 m/s dan membentuk sudut 37∘ terhadap sumbu \(x\) . Kecepatan awal peluru dapat dinyatakan dengan…</p>
+                        <form method="post" action="#soal1" id="form-soal1">
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="A" id="option1A">
+                                <label for="option1A">A. 100i m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="B" id="option1B">
+                                <label for="option1B">B. 100j m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="C" id="option1C">
+                                <label for="option1C">C. 60i + 80j m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="D" id="option1D">
+                                <label for="option1D">D. 80i + 60j m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="E" id="option1E">
+                                <label for="option1E">E. 140ij m/s</label>
+                            </div>
+                            <button type="button" id="hitung1">Periksa Jawaban</button>
+                        </form>
+                        <div id="result1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="soal2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <p>2. Objek yang sedang bergerak ke utara mendapatkan gaya dorong angin sehingga timbul percepatan ke arah timur sebesar 2 m/s2 selama 6 detik. 
+                            Jika kecepatannya menjadi 13 m/s, maka kecepatan awal objek adalah… .</p>
+                        <form method="post" action="#soal2" id="form-soal2">
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="A" id="option2A">
+                                <label for="option2A">A. 1 m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="B" id="option2B">
+                                <label for="option2B">B. 2 m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="C" id="option2C">
+                                <label for="option2C">C. 3 m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="D" id="option2D">
+                                <label for="option2D">D. 4 m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="E" id="option2E">
+                                <label for="option2E">E. 5 m/s</label>
+                            </div>
+                            <button type="button" id="hitung2">Periksa Jawaban</button>
+                        </form>
+                        <div id="result2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="soal3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <p>3. Sebuah benda dilempar dengan sudut elevasi \(60^\circ\) dengan kecepatan awal \(10 \, \text{m/s}\). 
+                            Besar dan arah kecepatan pada saat \(t = \frac{1}{2}\sqrt{3} \, \text{s}\) adalah ...</p>
+                        <form method="post" action="#soal3" id="form-soal3">
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="A" id="option3A">
+                                <label for="option3A">A. 10√3 m/s dan 0°</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="B" id="option3B">
+                                <label for="option3B">B. 5√3 m/s dan 10°</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="C" id="option3C">
+                                <label for="option3C">C. 5 m/s dan 0°</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="D" id="option3D">
+                                <label for="option3D">D. 5 m/s dan 5°</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="E" id="option3E">
+                                <label for="option3E">E. 5/2 m/s dan 2°</label>
+                            </div>
+                            <button type="button" id="hitung3">Periksa Jawaban</button>
+                        </form>
+                        <div id="result3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="../bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        // Question 1
+        document.getElementById('hitung1').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer1"]:checked')?.value;
+            const correctAnswer = "D"; // 80i + 60j m/s is correct
+            
+            const v = 100;      // kecepatan awal (m/s)
+            const theta = 37;   // sudut (derajat)
+            
+            // Calculations
+            const vx = v * Math.cos(theta * Math.PI / 180);
+            const vy = v * Math.sin(theta * Math.PI / 180);
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah D. 80i + 60j m/s</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Komponen Horizontal (x)</strong>: v<sub>x</sub> = v × cosθ</p>
+                <p>   - v<sub>x</sub> = 100 × cos37° ≈ 100 × 0.8 = 80 m/s</p>
+                <p>2. <strong>Komponen Vertikal (y)</strong>: v<sub>y</sub> = v × sinθ</p>
+                <p>   - v<sub>y</sub> = 100 × sin37° ≈ 100 × 0.6 = 60 m/s</p>
+                <p>3. <strong>Vektor Kecepatan</strong>: 80i + 60j m/s</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>100i m/s hanya mengandung komponen horizontal saja</p>";
+                        break;
+                    case 'B':
+                        resultHTML += "<p>100j m/s hanya mengandung komponen vertikal saja</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>60i + 80j m/s memiliki komponen yang terbalik</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>140ij m/s penulisan format vektor tidak benar</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result1').innerHTML = resultHTML;
+        });
+
+        // Question 2
+        document.getElementById('hitung2').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer2"]:checked')?.value;
+            const correctAnswer = "E"; // 5 m/s
+            
+            const a = 2;      // percepatan timur (m/s²)
+            const t = 6;      // waktu (s)
+            const v_akhir = 13; // kecepatan akhir (m/s)
+            
+            // Calculations
+            const v_timur = a * t;  // kecepatan tambahan ke timur
+            const v_utara = Math.sqrt(Math.pow(v_akhir, 2) - Math.pow(v_timur, 2)); // kecepatan awal utara
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah E. 5 m/s</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan:</h3>
+                <p>1. <strong>Kecepatan timur</strong> akibat percepatan:</p>
+                <p>   - v<sub>timur</sub> = a × t = 2 × 6 = 12 m/s</p>
+                <p>2. <strong>Kecepatan akhir</strong> merupakan resultan vektor:</p>
+                <p>   - v<sub>akhir</sub>² = v<sub>utara</sub>² + v<sub>timur</sub>²</p>
+                <p>   - 13² = v<sub>utara</sub>² + 12²</p>
+                <p>   - v<sub>utara</sub> = √(169 - 144) = 5 m/s</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>1 m/s terlalu kecil karena dengan percepatan 2 m/s² selama 6 detik sudah menambah 12 m/s kecepatan timur</p>";
+                        break;
+                    case 'B':
+                        resultHTML += "<p>2 m/s masih terlalu kecil untuk menghasilkan resultan 13 m/s dengan komponen timur 12 m/s</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>3 m/s akan menghasilkan resultan √(3² + 12²) ≈ 12.37 m/s, bukan 13 m/s</p>";
+                        break;
+                    case 'D':
+                        resultHTML += "<p>4 m/s akan menghasilkan resultan √(4² + 12²) ≈ 12.65 m/s, bukan 13 m/s</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result2').innerHTML = resultHTML;
+        });
+
+        // Question 3
+        document.getElementById('hitung3').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer3"]:checked')?.value;
+            const correctAnswer = "C"; // 5 m/s dan 0°
+            
+            const v0 = 10;      // kecepatan awal (m/s)
+            const theta = 60;    // sudut elevasi (derajat)
+            const t = 0.5 * Math.sqrt(3); // waktu (s)
+            
+            // Calculations
+            const v0x = v0 * Math.cos(theta * Math.PI / 180);
+            const v0y = v0 * Math.sin(theta * Math.PI / 180);
+            const vy = v0y - (9.8 * t);
+            const v_result = Math.sqrt(Math.pow(v0x, 2) + Math.pow(vy, 2));
+            const angle = Math.atan2(vy, v0x) * 180 / Math.PI;
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah C. 5 m/s dan 0°</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan:</h3>
+                <p>1. <strong>Komponen kecepatan awal</strong>:</p>
+                <p>   - v<sub>0x</sub> = 10 × cos60° = 5 m/s (horizontal)</p>
+                <p>   - v<sub>0y</sub> = 10 × sin60° = 5√3 m/s (vertikal)</p>
+                <p>2. <strong>Kecepatan vertikal</strong> pada t = ½√3 s:</p>
+                <p>   - v<sub>y</sub> = 5√3 - (9.8 × ½√3) ≈ 0 m/s</p>
+                <p>3. <strong>Kecepatan horizontal</strong> tetap konstan:</p>
+                <p>   - v<sub>x</sub> = 5 m/s</p>
+                <p>4. <strong>Resultan kecepatan</strong>:</p>
+                <p>   - v = √(5² + 0²) = 5 m/s</p>
+                <p>5. <strong>Arah kecepatan</strong>:</p>
+                <p>   - θ = arctan(0/5) = 0° (horizontal)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>10√3 m/s terlalu besar dan tidak mungkin karena kecepatan awal hanya 10 m/s</p>";
+                        break;
+                    case 'B':
+                        resultHTML += "<p>5√3 m/s adalah komponen vertikal awal, bukan kecepatan resultan pada waktu tersebut</p>";
+                        break;
+                    case 'D':
+                        resultHTML += "<p>5 m/s benar tetapi arah 5° salah karena kecepatan vertikal sudah 0</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>5/2 m/s terlalu kecil dan tidak sesuai dengan perhitungan</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result3').innerHTML = resultHTML;
+        });
+    </script>
+</body>
+</html>

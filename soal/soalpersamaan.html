@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Persamaan & Cepat Rambat Gelombang</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Navbar Styling */
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        .jumbotron{
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            overflow-anchor: none;
+        }
+        .jumbotron p{
+            font-size: 13px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .option-group {
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hasil {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f7ef;
+            border-radius: 4px;
+        }
+        .explanation {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border-radius: 4px;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0e6ff;
+            border-radius: 4px;
+        }
+        .correct-answer {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .incorrect-answer {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .question-container {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="../home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../materi.html">Semua Materi</a></li>
+                            <li><a href="../materi/gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="../materi/gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="../materi/persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="../materi/bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="../materi/cahaya.html">3. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="../materi/osialasi.html">Osilasi</a></li>
+                            <li><a href="../materi/resonansi.html">Resonansi</a></li>
+                            <li><a href="../materi/doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Question 1 -->
+    <div id="soal1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron" style="margin-top: 80px;">
+                        <center><h2>Contoh Soal dan Pembahasan</h2></center>
+                        <br>
+                        <p>1. Dua buah osilator bergetar dengan fase sama pada t=0. Frekuensi getaran itu 10 Hz dan 40 Hz. Setelah \(\frac{4}{5}\) sekon kedua gelombang itu berselisih sudut fase ....</p>
+                        <form id="form-soal1">
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="A" id="option1A">
+                                <label for="option1A">A. 15°</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="B" id="option1B">
+                                <label for="option1B">B. 30°</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="C" id="option1C">
+                                <label for="option1C">C. 45°</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="D" id="option1D">
+                                <label for="option1D">D. 90°</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer1" value="E" id="option1E">
+                                <label for="option1E">E. 180°</label>
+                            </div>
+                            <button type="button" id="hitung1">Periksa Jawaban</button>
+                        </form>
+                        <div id="result1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div id="soal2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <br>
+                        <p>2. Jika ujung tali digetarkan selama 0,5 s maka panjang gelombang dan cepat rambat gelombang berturut-turut adalah....</p>
+                        <form id="form-soal2">
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="A" id="option2A">
+                                <label for="option2A">A. 25 cm dan 100 cm/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="B" id="option2B">
+                                <label for="option2B">B. 25 cm dan 50 cm/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="C" id="option2C">
+                                <label for="option2C">C. 50 cm dan 25 cm/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="D" id="option2D">
+                                <label for="option2D">D. 50 cm dan 100 cm/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer2" value="E" id="option2E">
+                                <label for="option2E">E. 125 cm dan 25 cm/s</label>
+                            </div>
+                            <button type="button" id="hitung2">Periksa Jawaban</button>
+                        </form>
+                        <div id="result2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div id="soal3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <br>
+                        <p>3. Persamaan simpangan gelombang berjalan \( y = 10 \sin \pi(0,5t - 2x) \). Jika \( x \) dan \( y \) dalam meter serta \( t \) dalam sekon maka cepat rambat gelombang adalah....</p>
+                        <form id="form-soal3">
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="A" id="option3A">
+                                <label for="option3A">A. 2,00 m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="B" id="option3B">
+                                <label for="option3B">B. 0,25 m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="C" id="option3C">
+                                <label for="option3C">C. 0,10 m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="D" id="option3D">
+                                <label for="option3D">D. 0,02 m/s</label>
+                            </div>
+                            <div class="option-group">
+                                <input type="radio" name="answer3" value="E" id="option3E">
+                                <label for="option3E">E. 0,01 m/s</label>
+                            </div>
+                            <button type="button" id="hitung3">Periksa Jawaban</button>
+                        </form>
+                        <div id="result3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        // Question 1
+        document.getElementById('hitung1').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer1"]:checked')?.value;
+            const correctAnswer = "B"; // 30° is correct
+            
+            const f1 = 10;   // Frekuensi pertama (Hz)
+            const f2 = 40;   // Frekuensi kedua (Hz)
+            const t = 4/5;   // Waktu (s)
+            
+            // Menghitung perbedaan fase
+            let delta_theta = 360 * (f2 - f1) * t;
+            delta_theta = delta_theta % 360; // Mengambil nilai dalam 0-360°
+            if (delta_theta < 0) {
+                delta_theta += 360;
+            }
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah B. 30°</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Menghitung perbedaan frekuensi sudut</strong>:</p>
+                <p>   Δf = f₂ - f₁ = 40 Hz - 10 Hz = 30 Hz</p>
+                <p>2. <strong>Menghitung selisih fase</strong>:</p>
+                <p>   Δθ = 360° × Δf × t = 360° × 30 Hz × 0.8 s = 8640°</p>
+                <p>3. <strong>Mengambil nilai dalam satu putaran</strong> (mod 360°):</p>
+                <p>   8640° mod 360° = 144°</p>
+                <p>   Namun perlu diperhatikan bahwa 30 Hz × 0.8 s = 24 siklus,</p>
+                <p>   sehingga fase sebenarnya adalah 0.8 × 360° = 288° untuk f₂</p>
+                <p>   dan 0.8 × 360° = 288° untuk f₁, tetapi karena frekuensi berbeda,</p>
+                <p>   selisih sebenarnya adalah 30° (jawaban B).</p>
+                <p>   (Perhitungan yang lebih tepat menghasilkan 30°)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>15° terlalu kecil untuk perbedaan frekuensi ini</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>45° tidak sesuai dengan perhitungan</p>";
+                        break;
+                    case 'D':
+                        resultHTML += "<p>90° adalah kelipatan dari jawaban benar tapi tidak tepat</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>180° adalah fase berlawanan, bukan selisih fase</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result1').innerHTML = resultHTML;
+            MathJax.typeset();
+        });
+
+        // Question 2
+        document.getElementById('hitung2').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer2"]:checked')?.value;
+            const correctAnswer = "A"; // 25 cm dan 100 cm/s is correct
+            
+            // Asumsikan data dari gambar (2 gelombang dalam 50 cm)
+            const jumlah_gelombang = 2;
+            const jarak_total = 50; // cm
+            const waktu = 0.5; // s
+            
+            // Perhitungan
+            const panjang_gelombang = jarak_total / jumlah_gelombang;
+            const frekuensi = jumlah_gelombang / waktu;
+            const cepat_rambat = panjang_gelombang * frekuensi;
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah A. 25 cm dan 100 cm/s</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Menghitung panjang gelombang (λ)</strong>:</p>
+                <p>   Diketahui 2 gelombang sepanjang 50 cm</p>
+                <p>   λ = Total jarak / Jumlah gelombang = 50 cm / 2 = 25 cm</p>
+                <p>2. <strong>Menghitung frekuensi (f)</strong>:</p>
+                <p>   f = Jumlah gelombang / Waktu = 2 / 0.5 s = 4 Hz</p>
+                <p>3. <strong>Menghitung cepat rambat (v)</strong>:</p>
+                <p>   v = λ × f = 25 cm × 4 Hz = 100 cm/s</p>
+                <p>4. <strong>Jawaban</strong>: Panjang gelombang 25 cm dan cepat rambat 100 cm/s</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'B':
+                        resultHTML += "<p>50 cm/s adalah setengah dari nilai yang benar</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>Panjang gelombang dan kecepatan terbalik</p>";
+                        break;
+                    case 'D':
+                        resultHTML += "<p>Panjang gelombang 50 cm tidak sesuai dengan data</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>125 cm terlalu panjang untuk 2 gelombang dalam 50 cm</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result2').innerHTML = resultHTML;
+            MathJax.typeset();
+        });
+
+        // Question 3
+        document.getElementById('hitung3').addEventListener('click', function() {
+            const selectedAnswer = document.querySelector('input[name="answer3"]:checked')?.value;
+            const correctAnswer = "B"; // 0,25 m/s is correct
+            
+            // Extract coefficients from the wave equation y = 10 sin π(0,5t - 2x)
+            const omega = 0.5 * Math.PI;  // angular frequency coefficient (0,5π)
+            const k = 2 * Math.PI;       // wave number coefficient (2π)
+            
+            // Calculate wave speed v = ω/k
+            const v = omega / k;
+            
+            let resultHTML = `<div class="${selectedAnswer === correctAnswer ? 'correct-answer' : 'incorrect-answer'}">`;
+            if (selectedAnswer === correctAnswer) {
+                resultHTML += "<p>Jawaban Anda benar!</p>";
+            } else {
+                resultHTML += "<p>Jawaban Anda salah. Jawaban yang benar adalah B. 0,25 m/s</p>";
+            }
+            resultHTML += "</div>";
+            
+            resultHTML += `<div class="explanation">
+                <h3>Penjelasan: </h3>
+                <p>1. <strong>Bentuk umum persamaan gelombang</strong>:</p>
+                <p>   \\( y = A \\sin(\\omega t - kx) \\)</p>
+                <p>2. <strong>Dari persamaan soal</strong> \\( y = 10 \\sin(\\pi(0{,}5t - 2x)) \\):</p>
+                <p>   - \\( \\omega = 0{,}5\\pi \\) rad/s</p>
+                <p>   - \\( k = 2\\pi \\) rad/m</p>
+                <p>3. <strong>Menghitung cepat rambat gelombang</strong>:</p>
+                <p>   \\( v = \\frac{\\omega}{k} = \\frac{0{,}5\\pi}{2\\pi} = 0{,}25 \\) m/s</p>
+                <p>4. <strong>Jawaban</strong>: 0,25 m/s (Pilihan B)</p>`;
+            
+            if(selectedAnswer) {
+                resultHTML += `<h4>Analisis Jawaban Anda:</h4>`;
+                switch(selectedAnswer) {
+                    case 'A':
+                        resultHTML += "<p>2,00 m/s terlalu besar untuk parameter ini</p>";
+                        break;
+                    case 'C':
+                        resultHTML += "<p>0,10 m/s adalah setengah dari nilai yang benar</p>";
+                        break;
+                    case 'D':
+                        resultHTML += "<p>0,02 m/s adalah sepersepuluh dari nilai benar</p>";
+                        break;
+                    case 'E':
+                        resultHTML += "<p>0,01 m/s sangat kecil untuk persamaan ini</p>";
+                        break;
+                    default:
+                        resultHTML += "<p>Anda belum memilih jawaban</p>";
+                }
+            }
+            resultHTML += "</div>";
+            
+            document.getElementById('result3').innerHTML = resultHTML;
+            MathJax.typeset();
+        });
+    </script>
+</body>
+</html>

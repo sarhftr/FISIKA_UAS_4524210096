@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelombang Cahaya</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 70px;
+        }
+        
+        /* Navbar Styling */
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        
+        /* Main Content Styling */
+        .jumbotron {
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #a4c4b5;
+            display: inline-block;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        h4:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 70%;
+            width: 5px;
+            background-color: #a4c4b5;
+            border-radius: 3px;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .highlight {
+            color: #e74c3c;
+            font-weight: 500;
+        }
+        
+        /* Formula Box Styling */
+        .formula-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #a4c4b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .formula-box:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .formula-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        
+        .formula-label div {
+            padding: 5px 0;
+        }
+        
+        /* Glyphicon Styling */
+        .glyphicon-chevron-right {
+            color: #a4c4b5;
+            margin-right: 5px;
+        }
+        
+        /* Panel Styling */
+        .panel {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+        
+        .panel-heading {
+            background-color: #a4c4b5 !important;
+            color: white !important;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 15px;
+            border: none;
+        }
+        
+        .panel-title a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .panel-body {
+            padding: 0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .panel-body a {
+            display: block;
+            padding: 12px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .panel-body a:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+            color: #a4c4b5;
+        }
+        
+        /* Sub-section styling */
+        .subsection {
+            margin-left: 20px;
+            padding-left: 15px;
+            border-left: 2px solid #ddd;
+        }
+        
+        .formula-title {
+            color: #e74c3c;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .jumbotron {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            h4 {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Awal Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="../home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../materi.html">Semua Materi</a></li>
+                            <li><a href="gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="cahaya.html">3. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="osialasi.html">Osilasi</a></li>
+                            <li><a href="resonasi.html">Resonansi</a></li>
+                            <li><a href="doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <center><h2>Gelombang Cahaya</h2></center>
+                    
+                    <h4>A. Pendahuluan</h4>
+                    <p>Cahaya merupakan gelombang elektromagnetik dengan spektrum yang terbatas (spektrum optik atau spektrum tampak), dimana pada spektrum tertentu tersebut gelombang elektromagnetik dapat terlihat yang kemudian kita sebut sebagai cahaya. Tidak ada batasan yang eksak mengenai spektrum optik tersebut, akan tetapi mata normal manusia dapat menerima/merasakan gelombang elektromagnetik dengan panjang gelombang antara 400 sampai 700 nm (yang kita sebut sebagai cahaya tampak).</p>
+                    <p>Selain cahaya adalah gelombang, cahaya juga dapat dikatakan terdiri dari partikel yang disebut foton. Arah getar cahaya tegak lurus terhadap arah rambatnya, jadi gelombang cahaya dikategorikan sebagai gelombang transversal.</p>
+                    
+                    <h4>B. Sifat Gelombang Cahaya</h4>
+                    <p>Gelombang cahaya memiliki empat karakteristik utama:</p>
+                    
+                    <div class="subsection">
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Dispersi Cahaya</strong></p>
+                        <p>Dispersi merupakan pembiasan cahaya putih (cahaya polikromatik) menjadi komponennya yaitu cahaya monokromatik. Dispersi akan terjadi saat cahaya putih melewati medan pembias. Kita dapat mengamati sifat cahaya ini dengan menggunakan prisma sebagai medan pembias. Pada prisma, cahaya yang masuk akan mengalami pembiasan dua kali, yakni saat masuk ke prisma dan saat keluar ke prisma.</p>
+                        
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Interferensi Cahaya</strong></p>
+                        <p>Interferensi cahaya merupakan penjumlahan superposisi dua gelombang cahaya atau lebih yang dapat menimbulkan terbentuknya gelombang lain. Interferensi cahaya pada celah ganda terjadi karena adanya beda fase cahaya dari cahaya yang melalui kedua celah tersebut. Ketika sebuah sumber cahaya yang sama persis frekuensi dan panjang gelombangnya melewati dua buah celah, maka akan terjadi superposisi yang menyebabkan munculnya garis-garis gelap dan terang pada layar.</p>
+                        
+                        <div class="formula-box">
+                            <div class="formula-title">Untuk pita terang:</div>
+                            <p>\[ d\frac{y}{l} = m\cdot \lambda \]</p>
+                            <div class="formula-title">Untuk pita gelap:</div>
+                            <p>\[ d\frac{y}{l} = \left( m - \frac{1}{2}\right) \cdot\lambda \]</p>
+                            <div class="formula-label">
+                                <div class="row">
+                                    <div class="col-xs-6">\( d \) = Jarak antar celah (m)</div>
+                                    <div class="col-xs-6">\( \theta \) = Sudut interferensi</div>
+                                    <div class="col-xs-6">\( m \) = Orde (0,1,2,…)</div>
+                                    <div class="col-xs-6">\( \lambda \) = Panjang gelombang (m)</div>
+                                    <div class="col-xs-6">\( y \) = Jarak pita orde-m ke terang pusat (m)</div>
+                                    <div class="col-xs-6">\( l \) = Jarak celah ke layar (m)</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Difraksi Cahaya</strong></p>
+                        <p>Difraksi merupakan pelenturan cahaya saat cahaya melalui celah sehingga cahaya akan terpecah-pecah menjadi bagian-bagian yang lebih kecil dan memiliki sifat cahaya yang baru.</p>
+                        
+                        <p><strong>1. Difraksi Celah Tunggal</strong></p>
+                        <p>Saat cahaya melalui celah yang sangat kecil maka dapat terjadi peristiwa terbentuknya pita gelap dan terang yang disebut sebagai difraksi celah tunggal. Setelah cahaya melalui celah tersebut, terbentuklah cahaya baru (dengan menganggap celah sebagai sumber cahaya baru) yang menyebar ke segala arah. Pada difraksi celah tunggal, pita terang akan menutup satu orde-m.</p>
+                        
+                        <div class="formula-box">
+                            <div class="formula-title">Untuk pita terang:</div>
+                            <p>\[ d\frac{y}{l} = \left( m + \frac{1}{2}\right) \cdot\lambda \]</p>
+                            <div class="formula-title">Untuk pita gelap:</div>
+                            <p>\[ d\frac{y}{l} = m\cdot \lambda \]</p>
+                        </div>
+                        
+                        <p><strong>2. Difraksi pada kisi (Celah Banyak)</strong></p>
+                        <p>Jika sebuah cahaya monokromatis dilewatkan pada lempeng kisi atau celah banyak, maka akan terbentuk pola difraksi berupa pola gelap dan terang pada layar. Kisi adalah susunan celah yang sejajar dan memiliki ukuran yang sama, dan dapat dibuat dengan cara membuat goresan-goresan pada lempeng kaca atau logam menggunakan ujung intan.</p>
+                        
+                        <div class="formula-box">
+                            <p>\[ d = \frac{1}{N} \]</p>
+                            <div class="formula-label">
+                                <div>\( N \) = Konstanta kisi (garis/m)</div>
+                            </div>
+                        </div>
+                        
+                        <p>Pada difraksi celah banyak, pola terang dan gelap sama dengan Interferensi.</p>
+                        
+                        <div class="formula-box">
+                            <div class="formula-title">Untuk pita terang:</div>
+                            <p>\[ d\frac{y}{l} = m\cdot \lambda \]</p>
+                            <div class="formula-title">Untuk pita gelap:</div>
+                            <p>\[ d\frac{y}{l} = \left( m + \frac{1}{2}\right) \cdot\lambda \]</p>
+                        </div>
+                        
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Polarisasi Cahaya</strong></p>
+                        <p>Polarisasi cahaya merupakan berkurangnya intensitas cahaya yang diakibatkan oleh berkurangnya komponen pada gelombang cahaya. Polarisasi hanya dapat terjadi pada gelombang transversal. Polarisasi cahaya dapat terjadi akibat pemantulan, pembiasan, absorpsi dan hamburan.</p>
+                        
+                        <p><strong>1. Polarisasi akibat pembiasan:</strong></p>
+                        <p>Jika sinar pantul tegak lurus dengan sinar biasnya, maka sinar pantul akan terpolarisasi. Besarnya sudut polarisasi dapat dihitung dengan persamaan:</p>
+                        
+                        <div class="formula-box">
+                            <p>\[ \tan\ i_p = \frac{n_2}{n_1} \]</p>
+                            <div class="formula-label">
+                                <div class="row">
+                                    <div class="col-xs-6">\( i_p \) = Sudut polarisasi</div>
+                                    <div class="col-xs-6">\( n_1 \) = Indeks bias asal</div>
+                                    <div class="col-xs-6">\( n_2 \) = Indeks bias tujuan</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p><strong>2. Polarisasi akibat absorpsi:</strong></p>
+                        <p>Jika intensitas cahaya terpolarisasi, maka setelah melewati polarisator pertama, maka persamaan intensitas cahaya menjadi:</p>
+                        
+                        <div class="formula-box">
+                            <p>\[ I_1 = \frac{1}{2} I_0 \]</p>
+                            <div class="formula-label">
+                                <div class="row">
+                                    <div class="col-xs-6">\( I_1 \) = intensitas cahaya setelah melewati polarisator (cd)</div>
+                                    <div class="col-xs-6">\( I_0 \) = intensitas sumber cahaya (cd)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contoh Soal Panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#gcahayaCollapse">Contoh Soal dan Pembahasan Gelombang Cahaya</a>
+                            </h4>
+                        </div>
+                        <div id="gcahayaCollapse" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <a href="../soal/soalcahaya.html">Contoh Soal Gelombang Cahaya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

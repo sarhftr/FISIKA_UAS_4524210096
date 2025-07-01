@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persamaan & Cepat Rambat Gelombang - Materi Fisika</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 70px;
+        }
+        
+        /* Navbar Styling */
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            color: #2c3e50;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav > li > a:hover,
+        .nav > li > a:focus {
+            color: #a4c4b5;
+            background-color: transparent;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        
+        /* Main Content Styling */
+        .jumbotron {
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .jumbotron:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #a4c4b5;
+            display: inline-block;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        h4:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 70%;
+            width: 5px;
+            background-color: #a4c4b5;
+            border-radius: 3px;
+        }
+        
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .highlight {
+            color: #e74c3c;
+            font-weight: 500;
+        }
+        
+        /* Formula Box Styling */
+        .formula-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #a4c4b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .formula-box:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Glyphicon Styling */
+        .glyphicon-chevron-right {
+            color: #a4c4b5;
+            margin-right: 5px;
+        }
+        
+        /* Panel Styling */
+        .panel {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+        
+        .panel-heading {
+            background-color: #a4c4b5 !important;
+            color: white !important;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 15px;
+            border: none;
+        }
+        
+        .panel-title a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .panel-body {
+            padding: 0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .panel-body a {
+            display: block;
+            padding: 12px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .panel-body a:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+            color: #a4c4b5;
+        }
+        
+        /* Image Styling */
+        .media {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .media-object {
+            width: 250px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-right: 20px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .jumbotron {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            h4 {
+                font-size: 18px;
+            }
+            
+            .media {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .media-object {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../home.html">
+                    MATERI FISIKA UAS
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="../home.html">Home</a></li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../materi.html">Semua Materi</a></li>
+                            <li><a href="gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="gerak23dimensi.html">Gerak 2 & 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="cahaya.html">3. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="osialasi.html">Osilasi</a></li>
+                            <li><a href="resonasi.html">Resonansi</a></li>
+                            <li><a href="doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <center><h2>Persamaan & Cepat Rambat Gelombang</h2></center>
+                    
+                    <h4>A. Persamaan Gelombang Secara Matematis</h4>
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" src="../image/gelombang.png" alt="Persamaan Gelombang">
+                        </div>
+                        <div class="media-body">
+                            <p>Bentuk gelombang pada berbagai waktu. Tampak bahwa dengan berubahnya waktu maka posisi pola juga berubah. Pola tampak bergeser ke kanan, namun materi sendiri tidak bergeser ke kanan. Materi hanya berosilasi ke atas dan ke bawah.</p>
+                        </div>
+                    </div>
+                    
+                    <p>Focus pada gelombang dengan pola sederhana: gelombang sinusoidal. Untuk gelombang yang memiliki pola sinusoidal, artinya, pola gelombang merupakan fungsi sinus atau cosinus, bentuk umum simpangan gelombang memenuhi:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[\begin{align*}\mathcal{Y}(x,t) = A \cos\!\left(2\pi\frac{t}{T}-2\pi\frac{x}{\lambda}+\varphi_{_0}\right)\end{align*}\]</p>
+                    </div>
+                    
+                    <p>dengan:</p>
+                    <ul>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> \( Y(x,t) \), adalah simpangan titik pada medium yang berada pada koordinat \( x \) pada waktu \( t \)</li>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> \( A \): Amplitudo simpangan</li>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> \( T \): Periode gelombang</li>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> \( \lambda \): Panjang gelombang</li>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> \( \varphi_0 \): Fase awal gelombang</li>
+                    </ul>
+                    
+                    <p>Jadi fase gelombang adalah: \( 2\pi\frac{t}{T} - 2\pi\frac{x}{\lambda} + \varphi_{_o}\)</p>
+                    
+                    <p>Dengan Mendefinisikan:</p>
+                    <ul>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> Frekuensi sudut: \( \omega = \frac{2\pi}{T} \)</li>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> Bilangan gelombang: \( k = \frac{2\pi}{\lambda} \)</li>
+                    </ul>
+                    
+                    <p>Dapat juga menulis persamaan gelombang sebagai berikut:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[ y(x,t) = A\cos(\omega t - kx + \varphi_{_o}) \]</p>
+                    </div>
+                    
+                    <h4>B. Cepat Rambat Gelombang</h4>
+                    <p>Gelombang adalah <span class="highlight">perambatan gangguan/osilasi dari suatu sumber dimana terjadi transfer energi dari sumber tersebut ke ruang sekitarnya</span>. Sumber gelombang adalah getaran atau osilasi. Persamaan kecepatan gelombang diberikan oleh: \( v = \lambda \ f \)</p>
+                    
+                    <p><span class="highlight" style="text-decoration: underline;">Gelombang yang merambat</span> dari ujung satu ke ujung yang lain memiliki kecepatan tertentu, dengan menempuh jarak tertentu dalam waktu tertentu pula. Dengan demikian, secara matematis, hal itu dituliskan sebagai berikut:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[ v = \frac{s}{t} \]</p>
+                    </div>
+                    
+                    <p>Karena jarak yang ditempuh dalam satu periode (t = T) adalah sama dengan satu gelombang (s = λ) maka:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[ v = \frac{\lambda}{T} = f\lambda \]</p>
+                    </div>
+                    
+                    <p>Dengan:</p>
+                    <ul>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> \( v \) = Cepat rambat gelombang (m/s)</li>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> \( T \) = Periode gelombang (s)</li>
+                        <li><span class="glyphicon glyphicon-chevron-right"></span> \( \lambda \) = panjang gelombang (m)</li>
+                    </ul>
+                    
+                    <!-- Contoh Soal Panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#persamaan_cepat">Contoh Soal dan Pembahasan</a>
+                            </h4>
+                        </div>
+                        <div id="persamaan_cepat" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <a href="../soal/soalpersamaan.html">Contoh Soal Persamaan & Cepat Rambat Gelombang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

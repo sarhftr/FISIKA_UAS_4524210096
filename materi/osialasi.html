@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osilasi - Materi Fisika</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 70px;
+        }
+        
+        /* Navbar Styling */
+        .navbar-default {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #2c3e50 !important;
+            font-size: 20px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav > li > a {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav > li > a:hover {
+            color: #a4c4b5;
+        }
+        .nav > li > a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a4c4b5;
+            transition: width 0.3s ease;
+        }
+        .nav > li > a:hover:after {
+            width: 100%;
+        }
+        .dropdown-menu > li > a {
+            transition: all 0.2s ease;
+            padding: 8px 20px;
+        }
+        .dropdown-menu > li > a:hover {
+            background-color: #f8f9fa;
+            color: #a4c4b5;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            border-radius: 0 6px 6px 6px;
+            display: none;
+        }
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #a4c4b5;
+        }
+        
+        /* Main Content Styling */
+        .jumbotron {
+            background: white;
+            margin-top: 20px;
+            border: 3px solid #a4c4b5;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #a4c4b5;
+            display: inline-block;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        h4:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 70%;
+            width: 5px;
+            background-color: #a4c4b5;
+            border-radius: 3px;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .highlight {
+            color: #e74c3c;
+            font-weight: 500;
+        }
+        
+        /* Formula Box Styling */
+        .formula-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #a4c4b5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .formula-box:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .formula-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        
+        .formula-label div {
+            padding: 5px 0;
+        }
+        
+        /* Glyphicon Styling */
+        .glyphicon-chevron-right {
+            color: #a4c4b5;
+            margin-right: 5px;
+        }
+        
+        /* Panel Styling */
+        .panel {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+        
+        .panel-heading {
+            background-color: #a4c4b5 !important;
+            color: white !important;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 15px;
+            border: none;
+        }
+        
+        .panel-title a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .panel-body {
+            padding: 0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .panel-body a {
+            display: block;
+            padding: 12px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .panel-body a:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+            color: #a4c4b5;
+        }
+        
+        /* Media Object Styling */
+        .media {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #a4c4b5;
+        }
+        
+        .media-left {
+            margin-right: 20px;
+        }
+        
+        .media-object {
+            max-width: 250px;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .media-body {
+            flex: 1;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .jumbotron {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            h4 {
+                font-size: 18px;
+            }
+            
+            .media {
+                flex-direction: column;
+            }
+            
+            .media-left {
+                margin-right: 0;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .dropdown-submenu>.dropdown-menu {
+                position: static;
+                margin-top: 0;
+                margin-left: 20px;
+                border-radius: 6px;
+            }
+            .dropdown-submenu>a:after {
+                border-left-color: transparent;
+                border-top-color: #ccc;
+                border-width: 5px 5px 0;
+                margin-top: 8px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-top-color: #a4c4b5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Awal Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../home.html">
+                    UAS FISIKA
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="../home.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            Materi Fisika <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../materi.html">Semua Materi</a></li>
+                            <li><a href="gerak1dimensi.html">Gerak 1 Dimensi</a></li>
+                            <li><a href="gerak23dimensi.html">Gerak 2 dan 3 Dimensi</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gelombang <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="persamaan_gelombang.html">1. Persamaan & Cepat Rambat Gelombang</a></li>
+                                    <li><a href="bunyi.html">2. Intensitas Bunyi</a></li>
+                                    <li><a href="cahaya.html">3. Pembiasan Gelombang Cahaya</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="osialasi.html">Osilasi</a></li>
+                            <li><a href="resonasi.html">Resonansi</a></li>
+                            <li><a href="doppler.html">Efek Doppler</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../referensi.html">Referensi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <center><h2>Osilasi</h2></center>
+                    
+                    <h4>A. Pendahuluan</h4>
+                    <p>Osilasi adalah gerak berulang-ulang, bolak-balik dari kiri ke kanan atau atas ke bawah atau maju mundur pada selang waktu dan lintasan yang sama.</p>
+                    <p>Osilasi terdiri dari 2 jenis:</p>
+                    <p><span class="glyphicon glyphicon-chevron-right"></span> 1. Osilasi harmonik sederhana \( \rightarrow \) Pegas, Bandul</p>
+                    <p><span class="glyphicon glyphicon-chevron-right"></span> 2. Osilasi harmonik teredam</p>
+                    
+                    <h4>B. Osilasi Harmonik Sederhana</h4>
+                    <p>Osilasi harmonik sederhana adalah gerak bolak balik secara teratur melalui titik keseimbangan dengan banyak getaran benda dalam setiap sekon selalu sama atau konstan.</p>
+                    
+                    <p><strong>1. Persamaan Gerak Harmonik Sederhana</strong></p>
+                    
+                    <div class="formula-box">
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Posisi</strong></p>
+                        <p>\[y(t) = A \sin(\omega t + \theta_0)\]</p>
+                        <div class="formula-label">
+                            <div class="row">
+                                <div class="col-xs-6">\( y \) = Simpangan (m)</div>
+                                <div class="col-xs-6">\( A \) = Amplitudo (m)</div>
+                                <div class="col-xs-6">\( \omega \) = Kecepatan sudut (rad/s)</div>
+                                <div class="col-xs-6">\( \theta_0 \) = Sudut awal</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Kecepatan</strong></p>
+                        <p>\[v(t) = \frac{dx}{dt} = \omega A \cos(\omega t + \theta_0)\]</p>
+                        <p>\(V_{maks}\) ketika \(\cos(\omega t + \theta_0)=1\) :</p>
+                        <p>\[V_{maks} = \omega \cdot A\]</p>
+                    </div>
+                    
+                    <p><strong>2. Hubungan kecepatan dan simpangan</strong></p>
+                    <div class="formula-box">
+                        <p>\[v = \omega \sqrt{A^2 - y^2}\]</p>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Percepatan</strong></p>
+                        <p>\[a(t) = \frac{d^2x}{dt^2} = -\omega^2 [A\sin(\omega t + \theta_0)]\]</p>
+                        <p>\[a = -\omega^2 y\]</p>
+                    </div>
+                    
+                    <h4>C. Osilasi Harmonis Sederhana Beban Massa Pada Pegas</h4>
+                    <p>Gaya pemulih yang bekerja pada benda adalah \( F = -kx\), tanda \(- \) timbul karena gaya pegas berlawanan arah dengan simpangan.</p>
+                    <p>Setelah itu, gabungkan gaya tersebut dengan hukum kedua Newton:</p>
+                    
+                    <div class="formula-box">
+                        <p>\[ F = -kx = ma = m\frac{d^2x}{dt^2}\]</p>
+                        <p>\[a = \frac{d^2x}{dt^2}= -\left(\frac{k}{m}\right)x\]</p>
+                    </div>
+                    
+                    <h4>D. Osilasi Harmonis Sederhana Energi</h4>
+                    <p>Dengan asumsi tidak adanya gesekan sehingga total energi mekanik yang ada pada sistem adalah kekal atau konservatif.</p>
+                    
+                    <div class="formula-box">
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Energi Potensial</strong></p>
+                        <p>Sebuah pegas dengan konstanta \(k \) yang teregang sejauh \( x\) adalah:</p>
+                        <p>\[U =\frac{1}{2}kx^2\]</p>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Energi Kinetik</strong></p>
+                        <p>Benda \(m \) yang bergerak dengan laju \(v \):</p>
+                        <p>\[K =\frac{1}{2}mv^2\]</p>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Energi Total</strong></p>
+                        <p>\[\frac{1}{2}kx^2 + \frac{1}{2}mv^2 = \frac{1}{2}kA^2\]</p>
+                    </div>
+                    
+                    <h4>E. Osilasi Harmonik Sederhana - Bandul</h4>
+                    
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" src="../image/osilasi.png" alt="bandul">
+                        </div>
+                        <div class="media-body">
+                            <p>Bandul Matematis \(- \) Merupakan sistem benda titik yang digantung menggunakan tali.</p>
+                            <p>Sehingga ada perioda gerak harmonik sederhana untuk bandul matematis:</p>
+                            <div class="formula-box">
+                                <p>\[ \omega = \frac{2 \pi}{T} = \sqrt{\frac{g}{\ell}} \rightarrow T = 2\pi \sqrt{\frac{\ell}{g}} \]</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" src="../image/bandul2.png" alt="bandul">
+                        </div>
+                        <div class="media-body">
+                            <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Rumus untuk Bandul Sederhana:</strong></p>
+                            <p>\[ s = \ell\theta \rightarrow v = \frac{ds}{dt} = \ell\frac{d\theta}{dt} \rightarrow a = \ell\frac{d^2\theta}{dt^2} \]</p>
+                            
+                            <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Rumus untuk Energi kinetiknya:</strong></p>
+                            <p>\[ K = \frac{1}{2}mv^2 = \frac{1}{2}m\ell^2 \left(\frac{d\theta}{dt}\right)^2 \]</p>
+                            
+                            <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Rumus untuk Energi Potensialnya:</strong></p>
+                            <p>\[ U = mgh = mg\ell(1-\cos\theta) \]</p>
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box">
+                        <p><span class="glyphicon glyphicon-chevron-right"></span> <strong>Persamaan simpangan:</strong></p>
+                        <p>\[y = A \sin \omega t \]</p>
+                        <p>\[\omega = 2\pi f \]</p>
+                        <p class="text-center">atau</p>
+                        <p>\[\omega = \frac{2\pi}{T} \]</p>
+                    </div>
+                    
+                    <!-- Contoh Soal Panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#osilasiCollapse">Contoh Soal dan Pembahasan Osilasi</a>
+                            </h4>
+                        </div>
+                        <div id="osilasiCollapse" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <a href="../soal/soalosilasi.html">Contoh Soal Osilasi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../bootstrap/js/jQuery v3.2.0.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
